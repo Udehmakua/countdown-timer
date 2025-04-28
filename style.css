@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.countdown {
+  display: flex;
+  gap: 20px;
+  text-align: center;
+}
+
+.time-block {
+  background: #000;
+  color: #fff;
+  padding: 20px 10px;
+  border-radius: 10px;
+  width: 80px;
+  position: relative;
+}
+
+.time-block span {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.flip-card {
+  font-size: 32px;
+  font-weight: bold;
+  background: #222;
+  border-radius: 8px;
+  padding: 20px 10px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+/* Simple flipping animation for seconds */
+@keyframes flip {
+  0% { transform: rotateX(0); }
+  50% { transform: rotateX(180deg); }
+  100% { transform: rotateX(360deg); }
+}
+
+#seconds {
+  animation: flip 1s linear infinite;
+}
