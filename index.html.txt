@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flip Countdown Timer</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .countdown {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px 40px;
+      border-radius: 20px;
+      display: flex;
+      gap: 20px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .countdown-item {
+      background: #000;
+      color: #fff;
+      padding: 20px 10px;
+      border-radius: 10px;
+      font-size: 3rem;
+      min-width: 80px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .countdown-item .label {
+      font-size: 1rem;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    .colon {
+      font-size: 3rem;
+      padding: 0 5px;
+      color: #fff;
+      align-self: center;
+    }
+
+    /* Flip Animation */
+    .flip {
+      animation: flip 0.7s ease-in-out;
+    }
+
+    @keyframes flip {
+      0% { transform: rotateX(0); }
+      50% { transform: rotateX(-90deg); }
+      100% { transform: rotateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="countdown">
+  <div>
+    <div id="days" class="countdown-item">000</div>
+    <div class="label">Days</div>
+  </div>
+  <div class="colon">:</div>
+  <div>
+    <div id="hours" class="countdown-item">00</div>
+    <div class="label">Hours</div>
+  </div>
+  <div class="colon">:</div>
+  <div>
+    <div id="minutes" class="countdown-item">00</div>
+    <div class="label">Minutes</div>
+  </div>
+  <div class="colon">:</div>
+  <div>
+    <div id="seconds" class="countdown-item">00</div>
+    <div class="label">Seconds</div>
+  </div>
+</div>
+
+<script>
+  const endDate = new Date("May 30, 2025 23:59:59").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = endDate - now;
+
+    if (distance < 0) {
+      document.querySelector('.countdown').innerHTML = "Promo Ended";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    setFlip("#days", String(days).padStart(3, '0'));
+    setFlip("#hours", String(hours).padStart(2, '0'));
+    setFlip("#minutes", String(minutes).padStart(2, '0'));
+    setFlip("#seconds", String(seconds).padStart(2, '0'));
+  }
+
+  function setFlip(selector, value) {
+    const element = document.querySelector(selector);
+    if (element.innerText !== value) {
+      element.classList.add('flip');
+      setTimeout(() => {
+        element.classList.remove('flip');
+        element.innerText = value;
+      }, 350);
+    }
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>
